@@ -1,0 +1,8 @@
+.DS_Store
+.idea/
+*.diff
+*.pem*
+custom-pom.xml
+Dockerfile.base*
+node_modules/
+src/

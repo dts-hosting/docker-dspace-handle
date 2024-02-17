@@ -1,0 +1,4 @@
+PreCommit:
+  Prettier:
+    enabled: true
+    command: ["npx", "prettier", "--check", "."]

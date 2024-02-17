@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "protocolVersion": "2.11",
+  "serialNumber": 1,
+  "primarySite": true,
+  "multiPrimary": false,
+  "attributes": [
+    {
+      "name": "desc",
+      "value": "Lyrasis (DSpaceDirect) Handle Server"
+    }
+  ],
+  "servers": [
+    {
+      "serverId": 1,
+      "address": "$HANDLE_HOST_IP",
+      "publicKey": {
+        "format": "base64",
+        "value": "$SERVER_PUBLIC_KEY_DSA_BASE64"
+      },
+      "interfaces": [
+        {
+          "query": true,
+          "admin": true,
+          "protocol": "TCP",
+          "port": 2641
+        },
+        {
+          "query": true,
+          "admin": true,
+          "protocol": "HTTP",
+          "port": 8000
+        }
+      ]
+    }
+  ]
+}
