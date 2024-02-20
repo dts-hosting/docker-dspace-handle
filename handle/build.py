@@ -16,6 +16,7 @@ OUT_DIR = sys.argv[2]
 # Config options
 config = {
     'HANDLE_HOST_IP': os.getenv('HANDLE_HOST_IP', '0.0.0.0'),
+    'HANDLE_SERVER_NAME': os.getenv('HANDLE_SERVER_NAME', 'Handle Server'),
     'REPLICATION_ADMINS': ' '.join(['"%s"' % s for s in os.getenv('REPLICATION_ADMINS', "").split(" ")]),
     'SERVER_ADMINS': ' '.join(['"%s"' % s for s in os.getenv('SERVER_ADMINS', "").split(" ")]),
     'SERVER_PRIVATE_KEY_PEM': os.getenv('SERVER_PRIVATE_KEY_PEM', '').encode('ASCII'),  # Explict convert to byte string

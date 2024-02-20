@@ -7,7 +7,7 @@
   "attributes": [
     {
       "name": "desc",
-      "value": "Lyrasis (DSpaceDirect) Handle Server"
+      "value": "$HANDLE_SERVER_NAME"
     }
   ],
   "servers": [
@@ -21,13 +21,19 @@
       "interfaces": [
         {
           "query": true,
-          "admin": true,
+          "admin": false,
+          "protocol": "UDP",
+          "port": 2641
+        },
+        {
+          "query": true,
+          "admin": false,
           "protocol": "TCP",
           "port": 2641
         },
         {
           "query": true,
-          "admin": true,
+          "admin": false,
           "protocol": "HTTP",
           "port": 8000
         }

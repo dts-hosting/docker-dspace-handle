@@ -29,6 +29,7 @@
   }
 
   "interfaces" = (
+    "hdl_udp"
     "hdl_tcp"
     "hdl_http"
   )
