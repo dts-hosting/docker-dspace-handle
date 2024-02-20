@@ -82,9 +82,6 @@ with handle prefix registration requests.
 # the handle server must be running
 docker compose up -d
 make sitebndl # local server
-
-# for a remote ecs service
-make sitebndl service=$service
 ```
 
 This will only have to be done once (per handle server deployment).

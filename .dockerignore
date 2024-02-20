@@ -1,2 +1,3 @@
+.docker-compose.override.yml
 node_modules
 scripts/regen-files.sh
