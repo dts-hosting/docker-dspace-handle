@@ -79,11 +79,16 @@ For remote deployments the keys are uploaded to SSM:
 The `sitebndl.zip` is a collection if files that need to be submitted
 with handle prefix registration requests.
 
+For local testing:
+
 ```bash
 # the handle server must be running
 docker compose up -d
 make sitebndl # local server
 ```
+
+The actual `sitebndl.zip` that would be submitted to handle.net should
+be generated on the running handle server instance.
 
 This will only have to be done once (per handle server deployment).
 
@@ -97,5 +102,5 @@ Components of `sitebndl`:
 The only relevant parts for DSpace/Direct (seemingly) are the siteinfo
 and contactdata.
 
-_When registering prefixes the same `sitebndl.zip` can be submitted each time
-as those details don't change with a standalone handle server._
+_When updating prefix assignments the same `sitebndl.zip` can be submitted
+each time as those details don't change with a standalone handle server._
