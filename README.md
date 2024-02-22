@@ -49,12 +49,13 @@ docker compose up
 
 ## DSpace plugin cfg
 
-For the time being `handle-dspace-plugin.cfg` is embedded with this repository.
+For local testing `handle/config/handle-dspace-plugin.cfg` is embedded with
+this repository. Using the envvar `S3_HANDLE_DSPACE_PLUGIN_CFG_URL` the file
+can be downloaded from s3 before the server starts.
 
 When a new site is added this file will need to be updated, the handle server
 redeployed, and a handle prefix registration request will need to be made to
-the handle.net folks. See below for more details on that and on ideas for
-handling the plugin cfg differently in the future.
+the handle.net folks.
 
 ## Re/generating keys
 
@@ -98,23 +99,3 @@ and contactdata.
 
 _When registering prefixes the same `sitebndl.zip` can be submitted each time
 as those details don't change with a standalone handle server._
-
-## Registration request for new site
-
-TODO
-
-## Ideas for handle-dspace-plugin.cfg
-
-In the future it may be preferable to manage the `handle-dspace-plugin.cfg` differently.
-
-Some ideas for that:
-
-- Delete the embedded copy of the file and .gitignore it
-- Generate the cfg in this repo but as part of the Docker build workflow
-  - The data would be pulled from somewhere else (such as tagdb)
-  - Post image build trigger a restart of the deployed service
-- Alternatively, update the image to pull the cfg from a url (s3 or otherwise)
-  - The cfg would be downloaded on startup
-  - The cfg generation would be elsewhere and uploaded to s3
-  - Use an s3 -> lambda notification to restart the deployed service
-  - This nicely decouples this image build repository from the cfg generation

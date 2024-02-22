@@ -1,10 +1,12 @@
 #!/bin/bash
 
-cd /var/handle/svr
+cd /var/handle/svr || exit
 zip sitebndl.zip admpub.bin contactdata.dct repl_admin siteinfo.json
 
 if [[ -z "$S3_SITEBNDL_UPLOAD_URL" ]]; then
-  echo "Skipping s3 upload: no upload destination defined."
+  echo "Skipping s3 upload: no upload destination defined for sitebndl."
 else
-  aws s3 cp sitebndl.zip ${S3_SITEBNDL_UPLOAD_URL}/sitebndl.zip
+  URL=${S3_SITEBNDL_UPLOAD_URL}
+  echo "Uploading sitebndl to s3: $URL"
+  aws s3 cp sitebndl.zip $URL
 fi
