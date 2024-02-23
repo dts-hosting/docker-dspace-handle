@@ -9,8 +9,11 @@ services:
         JDK_VERSION: "${JDK_VERSION}"
       context: .
     environment:
+      CONTACT_EMAIL: "admin@example.org"
+      CONTACT_NAME: "Handle Administrator"
       HANDLE_HOST_IP: 0.0.0.0
       HANDLE_SERVER_NAME: "Handle Server"
+      ORG_NAME: "Example"
       REPLICATION_ADMINS: "300:0.NA/123456789"
       S3_HANDLE_DSPACE_PLUGIN_CFG_URL: "${S3_HANDLE_DSPACE_PLUGIN_CFG_URL}"
       S3_SITEBNDL_UPLOAD_URL: "${S3_SITEBNDL_UPLOAD_URL}"

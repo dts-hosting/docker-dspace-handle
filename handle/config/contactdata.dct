@@ -1,5 +1,5 @@
 {
-  "contact_email" = "admin@dspacedirect.org"
-  "org_name" = "Lyrasis (Handle Server)"
-  "contact_name" = "DSpaceDirect Administrator"
+  "contact_email" = "$CONTACT_EMAIL"
+  "contact_name" = "$CONTACT_NAME"
+  "org_name" = "$ORG_NAME"
 }

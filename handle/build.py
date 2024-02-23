@@ -15,8 +15,11 @@ OUT_DIR = sys.argv[2]
 
 # Config options
 config = {
+    'CONTACT_EMAIL': os.getenv('CONTACT_EMAIL', ''),
+    'CONTACT_NAME': os.getenv('CONTACT_NAME', ''),
     'HANDLE_HOST_IP': os.getenv('HANDLE_HOST_IP', '0.0.0.0'),
     'HANDLE_SERVER_NAME': os.getenv('HANDLE_SERVER_NAME', 'Handle Server'),
+    'ORG_NAME': os.getenv('ORG_NAME', ''),
     'REPLICATION_ADMINS': ' '.join(['"%s"' % s for s in os.getenv('REPLICATION_ADMINS', "").split(" ")]),
     'SERVER_ADMINS': ' '.join(['"%s"' % s for s in os.getenv('SERVER_ADMINS', "").split(" ")]),
     'SERVER_PRIVATE_KEY_PEM': os.getenv('SERVER_PRIVATE_KEY_PEM', '').encode('ASCII'),  # Explict convert to byte string
@@ -57,4 +60,5 @@ def generate_template(template, out_file, cfg):
 
 
 generate_template(os.path.join(CONFIG_DIR, 'config.dct'), os.path.join(OUT_DIR, 'config.dct'), config)
+generate_template(os.path.join(CONFIG_DIR, 'contactdata.dct'), os.path.join(OUT_DIR, 'contactdata.dct'), config)
 generate_template(os.path.join(CONFIG_DIR, 'siteinfo.json'), os.path.join(OUT_DIR, 'siteinfo.json'), config)

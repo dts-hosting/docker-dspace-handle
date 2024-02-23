@@ -20,7 +20,6 @@ fi
 sed -i 's|net.handle.server.Main|-Ddspace.handle.plugin.configuration=/home/handle/config/handle-dspace-plugin.cfg net.handle.server.Main|' /opt/handle/bin/hdl
 
 # sitebndl components
-cp /home/handle/config/contactdata.dct /var/handle/svr/contactdata.dct
 echo "300:0.NA/YOUR_PREFIX" > /var/handle/svr/repl_admin
 
 # Start the handle server
