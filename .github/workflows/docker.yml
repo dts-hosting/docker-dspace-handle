@@ -1,0 +1,46 @@
+name: Build and push docker dspace backend image
+
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Dotenv Action
+        uses: falti/dotenv-action@v1
+        id: dotenv
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::388502511949:role/github_actions
+          role-session-name: oidc
+      - name: Switch role to dspace (hosting) account
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::590322387960:role/DevOpsRole
+          role-session-name: dspace
+          role-chaining: true
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+        id: login-ecr
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: handle
+          IMAGE_TAG: "${{ steps.dotenv.outputs.handle_version }}${{ !github.ref_name == 'main' && format('_{0}', github.ref_name) || '' }}"
+        run: |
+          docker compose build
+          docker tag lyrasis/dspace-handle:${{ steps.dotenv.outputs.handle_version }} $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
