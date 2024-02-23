@@ -97,7 +97,7 @@ Components of `sitebndl`:
 - `admpub.bin` located in container at: `/var/handle/svr/admpub.bin`
 - `contactdata.dct` located in container at: `/var/handle/svr/contactdata.dct`
 - `repl_admin` located in container at: `/var/handle/svr/repl_admin`
-- `siteinfo.json` located in container at: `/var/handle/svr/siteinfo.json`
+- `siteinfo.bin` located in container at: `/var/handle/svr/siteinfo.bin`
 
 The only relevant parts for DSpace/Direct (seemingly) are the siteinfo
 and contactdata.
