@@ -1,0 +1,15 @@
+name: Lint
+
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actionsx/prettier@v3
+        with:
+          args: --check .

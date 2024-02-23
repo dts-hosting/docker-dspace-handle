@@ -9,7 +9,6 @@ endif
 install: ## make install # Install dependencies
 	@mkdir -p "src"
 	@rbenv install -s && gem install bundler
-	@bundle install
 	@gem install overcommit && overcommit --install && overcommit --sign pre-commit
 	@npm install && npm i -g npx || true
 
