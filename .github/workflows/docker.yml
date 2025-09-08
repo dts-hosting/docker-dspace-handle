@@ -20,13 +20,13 @@ jobs:
         uses: falti/dotenv-action@v1
         id: dotenv
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           aws-region: us-west-2
           role-to-assume: arn:aws:iam::388502511949:role/github_actions
           role-session-name: oidc
       - name: Switch role to dspace (hosting) account
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           aws-region: us-east-2
           role-to-assume: arn:aws:iam::590322387960:role/DevOpsRole
