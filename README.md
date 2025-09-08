@@ -26,6 +26,49 @@ mkdir -p src
 git -C src clone https://github.com/cnri/Remote-Handle-Resolver
 ```
 
+1.5. Add logging (optional)
+
+```diff
+--- a/src/main/java/org/dspace/handle/MultiRemoteDSpaceRepositoryHandlePlugin.java
++++ b/src/main/java/org/dspace/handle/MultiRemoteDSpaceRepositoryHandlePlugin.java
+@@ -41,6 +41,11 @@ import com.google.gson.JsonIOException;
+ import com.google.gson.JsonParser;
+ import com.google.gson.JsonSyntaxException;
+
++import org.apache.log4j.ConsoleAppender;
++import org.apache.log4j.PatternLayout;
++import org.apache.log4j.Level;
++import org.apache.log4j.Logger;
++
+ /**
+  * Extension to the CNRI Handle Server that translates requests to resolve
+  * handles into remote calls to the mini-DSpace Handle resolver JSON API. This
+@@ -57,9 +62,30 @@ import com.google.gson.JsonSyntaxException;
+  */
+ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
+ {
++    static {
++        // Set default log level from env var or fallback to INFO
++        String levelStr = System.getenv("JETTY_LOG_LEVEL");
++        Level level = Level.toLevel(levelStr, Level.INFO);
++
++        Logger rootLogger = Logger.getRootLogger();
++        rootLogger.setLevel(level);
++
++        // If no appenders are defined, add console appender
++        if (!rootLogger.getAllAppenders().hasMoreElements()) {
++            ConsoleAppender console = new ConsoleAppender(); // create appender
++            console.setLayout(new PatternLayout("%d [%t] %-5p %c - %m%n"));
++            console.setThreshold(level);
++            console.activateOptions();
++            rootLogger.addAppender(console);
++        }
++
++        Logger.getLogger("org.eclipse.jetty").setLevel(level);
++        Logger.getLogger(MultiRemoteDSpaceRepositoryHandlePlugin.class).setLevel(level);
++    }
+```
+
 2. Run a build
 
 ```bash
