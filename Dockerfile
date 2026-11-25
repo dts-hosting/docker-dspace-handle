@@ -1,6 +1,8 @@
-FROM ubuntu:22.04
+FROM ubuntu:26.04
 ARG HANDLE_VERSION
 ARG JDK_VERSION
+# Architecture - arm64 or amd64
+ARG TARGETARCH
 
 # Update installed APT packages
 # Get the handle server package and put it in the container
@@ -8,7 +10,11 @@ ARG JDK_VERSION
 # Redirect log files to stdout/stderr
 # Install the AWS cli
 
-RUN DEBIAN_FRONTEND=noninteractive apt update && \
+RUN if [ "$TARGETARCH" = "arm64" ]; \
+    then export AWSCLIURL=https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip; \
+    else export AWSCLIURL=https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip; \
+    fi; \
+    DEBIAN_FRONTEND=noninteractive apt update && \
     apt install -y curl openjdk-${JDK_VERSION}-jdk-headless python3 wget zip && \
     apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     wget -P /tmp http://www.handle.net/hnr-source/handle-${HANDLE_VERSION}-distribution.tar.gz && \
@@ -16,7 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && \
     mkdir -p /var/handle/svr/logs && \
     ln -sf /dev/stdout /var/handle/svr/logs/access.log && \
     ln -sf /dev/stderr /var/handle/svr/logs/error.log && \
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    curl ${AWSCLIURL} -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
     ./aws/install && \
     rm -rf ./aws
